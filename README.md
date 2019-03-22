@@ -1,7 +1,7 @@
 1. [Restful API](#restfulApi )
     * [Test Connectivity](#isLive )
     * [Get Account Balance](#getAccountBalance )
-    * [Get Ticker](#getTicker )
+    * [Ticker Details](#detailsTicker )
     * [Ticker List](#tickerList )
     * [New Order](#createOrder )
     * [Cancel Order](#cancelOrder )
@@ -106,13 +106,13 @@
 	}
  ```
   
-### <a name="getTicker"></a> 3. Get Ticker
+### <a name="detailsTicker"></a> 3. Ticker Details
   
   
  * **Request**:  
   
     ```
-    GET /api/ticker/data
+    GET /api/ticker/get
     ``` 
   
  * **Request Params**:  
@@ -126,15 +126,18 @@
  ```
     {
 	   	"data": {
-	   	   "symbol": "eth_btc",
-	   	   "askPrice": "0.07",
-	   	   "askQty": "0.01",
-	   	   "bidPrice": "0.06",
-	   	   "bidQty": "1.00"
-	   	},
+          "last":"0.00000048",
+          "lowestAsk":"0.00000048",
+          "highestBid":"0.00000047",
+          "percentChange":"0.09090909",
+          "baseVolume":"73.54205337",
+          "quoteVolume":"155804874.92619288",
+          "high24hr":"0.00000050",
+          "low24hr":"0.00000044"
+        },
 	  	"msg": "ok",
 	  	"code": 0
-	 }
+	}
  ```
   
 ### <a name="tickerList"></a> 4. Ticker List
@@ -274,7 +277,7 @@
 	   	   "qty": 1.00,
 	   	   "dealQty": 1.00,        // dealed quantity
 	   	   "avgPrice": 1.00,       // average deal price
-	   	   "status": "full_deal",  // order status [new,full_deal,partial_deal,canceling,canceled]
+	   	   "status": "full_deal",  // order status [new,fullDeal,partialDeal,canceling,canceled]
 	   	   "type": "limit",        
 	   	   "side": "buy",          
 	   	   "orderTime": 1527237096525 // utc timestamp when the order created
