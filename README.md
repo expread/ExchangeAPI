@@ -11,6 +11,12 @@
     * [Get Order Book](#getOrderBook )
     * [Get Recent Trades](#getRecentTrades )
     * [Get Klines](#getKlines )
+    * [Get Crypto Recharge address](#getCryptoRechargeAddress )
+    * [Get Crypto Recharge Records](#getCryptoRechargeRecords )
+    * [Get User Transactions](#getUserTransactions )
+    * [Get Crypto Withdrawal Records](#getCryptoWithdrawalRecords )
+    * [Apply Crypto Withdrawal](#applyCryptoWithdrawal )
+    
 + [Websocket API](#websocketApi )
     * [Publish Order Book](#pubOrderBook )
     * [Publish Ticker](#pubTicker )
@@ -503,6 +509,193 @@
 	  	"code": 0
 	 }
  ``` 
+ ### <a name="getCryptoRechargeAddress"></a> 13. Get Crypto Recharge address
+ 
+ * **Request**:  
+   
+     ```
+     GET /api/recharge/cryptoWalletInfo
+     ```   
+   
+  * **Request Params**:   
+   
+    | Name   | Type| Mandatory | Description   |
+    | ----- | ---- | ---- | ---- |
+    | assetCode | string | yes | such as eth |
+   
+  * **Response:**
+   
+      ```
+         {
+           "code": 0,
+           "msg": "ok",
+           "data": {
+             "assetCode": "eth",    
+             "digitAssetAddress": "0x19b24750ac76bb4cc1a2e7f8379c54aff7918ca5" //recharge address
+           }
+         }
+      ``` 
+  
+  ### <a name="getCryptoRechargeRecords"></a> 14. Get Crypto Recharge Records
+   
+   * **Request**:  
+     
+       ```
+       GET /api/recharge/cryptoRechargeRecords
+       ``` 
+       If startTime or endTime is specified, return records with create time between startTime and endTime ordered by create time desc.    
+       
+   * **Request Params**:   
+     
+      | Name   | Type| Mandatory | Description   |
+      | ----- | ---- | ---- | ---- |
+      | assetCode | string | no | such as eth |
+      | limit | int | no | max: 300, default: 50 |
+      | startTime | long | no | utc timestamp  |
+      | endTime | long | no | utc timestamp  |
+     
+   * **Response:**
+     
+        ```
+           {
+             "code": 0,
+             "msg": "ok",
+             "data": [
+               {
+                 "txId": "0xbcc271cbc172aeea7a5c90664b93b3322211c25aadf1a8674544750810de6bf1", //txId
+                 "blockTime": 1543314156, 
+                 "valueOut": 0.01, // recharge amount
+                 "outAddress": "0x1606035dc4023346eef90dbc1b279096dc4e0f96", //recharge address
+                 "assetCode": "eth", // recharge crypto code
+                 "blockId": 6781629,
+                 "txIndex": 32,
+                 "confirmations": 1, 
+                 "status": 2,    // status :1 unconfirmed,2confirmed
+                 "createTime": 1543318090000,   
+                 "updateTime": 1545968385000
+               },
+               {
+                 ...
+               }
+             ]
+           }
+        ``` 
+     
+  ### <a name="getUserTransactions"></a> 15. Get User Transactions
+   * **Request**:  
+        
+       ```
+       GET /api/transaction/userTransactionList   
+       ``` 
+       If startTime or endTime is specified, return records with deal time between startTime and endTime ordered by create time desc.    
+       
+   * **Request Params**:   
+        
+         | Name   | Type| Mandatory | Description   |
+         | ----- | ---- | ---- | ---- |
+         | symbol | string | yes | such as eth_btc |
+         | limit | int | no | max: 300, default: 50 |
+         | side | String | no | buy or sell |
+         | orderUuid | String | no | order number |
+         | startTime | long | no | utc timestamp  |
+         | endTime | long | no | utc timestamp  |
+        
+   * **Response:**
+        
+       ```
+          {
+            "code": 0,
+            "msg": "ok",
+            "data": [
+              {
+                "txUuid": "a72e0533c7ee45868b5f04a61fb9b756",       //transaction number
+                "orderUuid": "ff5ede34-a68d-4d95-9231-81eba5fe60f5", //order number
+                "side": "sell",    
+                "tradeFee": 0.00002498,                             //transaction fee
+                "dealTime": 1553466691389,                          // deal time
+                "dealPrice": 0.03416,                               
+                "dealQty": 0.731,                              
+                "dealVolumePrice": 0.02497096                      //total
+              },
+              {
+                ...
+              }
+            ]
+          }
+       ``` 
+       
+  ### <a name="getCryptoWithdrawalRecords"></a> 16. Get Crypto Withdrawal Records
+   * **Request**:  
+           
+      ```
+      GET /api/withdrawal/cryptoWithdrawalRecords   
+      ```  
+      If startTime or endTime is specified, return records with create time between startTime and endTime ordered by create time desc.    
+      
+          
+   * **Request Params**:   
+           
+            | Name   | Type| Mandatory | Description   |
+            | ----- | ---- | ---- | ---- |
+            | assetCode | string | no | such as eth |
+            | limit | int | no | max: 300, default: 50 |
+            | recordId | long | no | record number |
+            | txId | String | no | txid |
+            | status | int | no | withdraw status :5 email pending,10 email failed,15pending ,20 pending2,25 denied，30 withdrawing，35 denied，45 cancelled,50 cancelled2 |
+            | startTime | long | no | utc timestamp  |
+            | endTime | long | no | utc timestamp  |
+           
+   * **Response:**
+           
+      ```
+         {
+           "code": 0,
+           "msg": "ok",
+           "data": [
+             {
+               "id": 31,
+               "assetCode": "btc",
+               "amount": 0.1,
+               "fee": 0.002,
+               "walletAddress": "aaa0b9d8fec7d3cbada063dd395a337aabae584c78f218be69a8dbf088d78e4c",
+               "status": 30,
+               "failureReason": null,
+               "createTime": 1554886257000,
+               "txId": null,
+               "withTime": null
+             },
+             {
+               ...
+             }
+           ]
+         }
+      ```   
+ ### <a name="applyCryptoWithdrawal"></a> 17. Apply Crypto Withdrawal
+   * **Request**:  
+               
+      ```
+      GET /api/withdrawal/cryptoWithdrawalRecords   
+      ```  
+              
+   * **Request Params**:   
+           
+        | Name   | Type| Mandatory | Description   |
+        | ----- | ---- | ---- | ---- |
+        | assetCode | string | no | such as eth |
+        | walletAddress | string | no | withdrawing address|
+        | applyAmt | BigDecimal | no | withdrawal amount |
+        
+               
+   * **Response:**
+               
+      ```
+         {
+           "code": 0,
+           "msg": "ok",
+           "data": 33   // recordId
+         }
+      ```   
+    
   
 ## Websocket API Information
   
