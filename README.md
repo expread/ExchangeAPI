@@ -591,14 +591,14 @@
        
    * **Request Params**:   
         
-         | Name   | Type| Mandatory | Description   |
-         | ----- | ---- | ---- | ---- |
-         | symbol | string | yes | such as eth_btc |
-         | limit | int | no | max: 300, default: 50 |
-         | side | String | no | buy or sell |
-         | orderUuid | String | no | order number |
-         | startTime | long | no | utc timestamp  |
-         | endTime | long | no | utc timestamp  |
+      | Name   | Type| Mandatory | Description   |
+      | ----- | ---- | ---- | ---- |
+      | symbol | string | yes | such as eth_btc |
+      | limit | int | no | max: 300, default: 50 |
+      | side | String | no | buy or sell |
+      | orderUuid | String | no | order number |
+      | startTime | long | no | utc timestamp  |
+      | endTime | long | no | utc timestamp  |
         
    * **Response:**
         
@@ -635,15 +635,15 @@
           
    * **Request Params**:   
            
-            | Name   | Type| Mandatory | Description   |
-            | ----- | ---- | ---- | ---- |
-            | assetCode | string | no | such as eth |
-            | limit | int | no | max: 300, default: 50 |
-            | recordId | long | no | record number |
-            | txId | String | no | txid |
-            | status | int | no | withdraw status :5 email pending,10 email failed,15pending ,20 pending2,25 denied，30 withdrawing，35 denied，45 cancelled,50 cancelled2 |
-            | startTime | long | no | utc timestamp  |
-            | endTime | long | no | utc timestamp  |
+      | Name   | Type| Mandatory | Description   |
+      | ----- | ---- | ---- | ---- |
+      | assetCode | string | no | such as eth |
+      | limit | int | no | max: 300, default: 50 |
+      | recordId | long | no | record number |
+      | txId | String | no | txid |
+      | status | int | no | withdraw status :5 email pending,10 email failed,15pending ,20 pending2,25 denied，30 withdrawing，35 denied，45 cancelled,50 cancelled2 |
+      | startTime | long | no | utc timestamp  |
+      | endTime | long | no | utc timestamp  |
            
    * **Response:**
            
