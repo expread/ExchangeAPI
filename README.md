@@ -1,14 +1,14 @@
 1. [Restful API](#restfulApi )
-    * [Test Connectivity](#isLive )
+    * [Test Connectivity (public)](#isLive )
     * [Get Account Balance](#getAccountBalance )
-    * [Ticker Details](#detailsTicker )
-    * [Ticker List](#tickerList )
+    * [Ticker Details (public)](#detailsTicker )
+    * [Ticker List (public)](#tickerList )
     * [New Order](#createOrder )
     * [Cancel Order](#cancelOrder )
     * [Get Order Information](#orderInfo )
     * [Get My All Orders](#getMyAllOrders )
     * [Get My Open Orders](#getMyOpens )
-    * [Get Order Book](#getOrderBook )
+    * [Get Order Book (public)](#getOrderBook )
     * [Get Recent Trades](#getRecentTrades )
     * [Get Klines](#getKlines )
   
@@ -18,7 +18,7 @@
   
 ### General Information
   
-+ All endpoints should add a request header named ```X-EX-APIKEY``` with ```apiKey``` as a value **except test connectivity endpoint**.
++ All endpoints should add a request header named ```X-EX-APIKEY``` with ```apiKey``` as a value **except public endpoint**.
 + All endpoints require an additional parameter ```signature ``` to be sent **except test connectivity endpoint**.
 + Endpoints use HMAC SHA256 signatures. The HMAC SHA256 signature is a keyed HMAC SHA256 operation. All params sorted by alphabet order except param ```signature``` concatenated with ```&``` as ```totalParams```. Then use your ```secretKey``` as the key and ```totalParams ``` as the value for the HMAC operation.
 + The ```signature``` is **not case sensitive**.
@@ -84,21 +84,23 @@
   
  ```
     {
-	   	"data": [
-	   	   {
-	   	       "asset": "eth",         // asset code
-	   	       "usable": 1000.0000,    // available amount
-	   	       "locked": 2.0000        // locked amount  
-	   	   },
-	   	   {
-	   	       "asset": "btc",
-	   	       "usable": 200.0000,
-	   	       "locked": 0.05
-	   	   }
-	   	],
-	  	"msg": "ok",
-	  	"code": 0	 
-	}
+        "data":{
+            "balances": [
+                {
+                    "asset":"eth",
+                    "usable":1000,
+                    "locked":2
+                },
+                {
+                    "asset":"btc",
+                    "usable":200,
+                    "locked":0.05
+                }
+            ]
+        },
+        "msg":"ok",
+        "code":0
+    }
  ```
   
 ### <a name="detailsTicker"></a> 3. Ticker Details
